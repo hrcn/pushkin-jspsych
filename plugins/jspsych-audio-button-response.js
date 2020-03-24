@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  **/
-import jsPsych from '../jspsych.js';
-
 const audioButtonResponse = (function() {
 	var plugin = {};
 
@@ -19,57 +17,57 @@ const audioButtonResponse = (function() {
 		description: '',
 		parameters: {
 			stimulus: {
-				type: jsPsych.plugins.parameterType.AUDIO,
+				type: 'AUDIO',
         pretty_name: 'Stimulus',
 				default: undefined,
 				description: 'The audio to be played.'
 			},
 			choices: {
-				type: jsPsych.plugins.parameterType.STRING,
+				type: 'STRING',
         pretty_name: 'Choices',
 				default: undefined,
 				array: true,
 				description: 'The button labels.'
 			},
       button_html: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: 'HTML_STRING',
         pretty_name: 'Button HTML',
         default: '<button class="jspsych-btn">%choice%</button>',
         array: true,
         description: 'Custom button. Can make your own style.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below the stimulus.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: null,
         description: 'The maximum duration to wait for a response.'
       },
       margin_vertical: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Margin vertical',
         default: '0px',
         description: 'Vertical margin of button.'
       },
       margin_horizontal: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Margin horizontal',
         default: '8px',
         description: 'Horizontal margin of button.'
       },
       response_ends_trial: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Response ends trial',
         default: true,
         description: 'If true, the trial will end when user makes a response.'
       },
       trial_ends_after_audio: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Trial ends after audio',
         default: false,
         description: 'If true, then the trial will end as soon as the audio file finishes playing.'
@@ -77,7 +75,9 @@ const audioButtonResponse = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     // setup stimulus
     var context = jsPsych.pluginAPI.audioContext();

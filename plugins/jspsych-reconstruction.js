@@ -8,8 +8,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const jspsychReconstruction = (function() {
 
   var plugin = {};
@@ -19,37 +17,37 @@ const jspsychReconstruction = (function() {
     description: '',
     parameters: {
       stim_function: {
-        type: jsPsych.plugins.parameterType.FUNCTION,
+        type: 'FUNCTION',
         pretty_name: 'Stimulus function',
         default: undefined,
         description: 'A function with a single parameter that returns an HTML-formatted string representing the stimulus.'
       },
       starting_value: {
-        type: jsPsych.plugins.parameterType.FLOAT,
+        type: 'FLOAT',
         pretty_name: 'Starting value',
         default: 0.5,
         description: 'The starting value of the stimulus parameter.'
       },
       step_size: {
-        type: jsPsych.plugins.parameterType.FLOAT,
+        type: 'FLOAT',
         pretty_name: 'Step size',
         default: 0.05,
         description: 'The change in the stimulus parameter caused by pressing one of the modification keys.'
       },
       key_increase: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Key increase',
         default: 'h',
         description: 'The key to press for increasing the parameter value.'
       },
       key_decrease: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Key decrease',
         default: 'g',
         description: 'The key to press for decreasing the parameter value.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'The text that appears on the button to finish the trial.'
@@ -57,7 +55,9 @@ const jspsychReconstruction = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     // current param level
     var param = trial.starting_value;

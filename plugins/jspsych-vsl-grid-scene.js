@@ -10,8 +10,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const vslGridScene = (function() {
 
   var plugin = {};
@@ -23,21 +21,21 @@ const vslGridScene = (function() {
     description: '',
     parameters: {
       stimuli: {
-        type: jsPsych.plugins.parameterType.IMAGE,
+        type: 'IMAGE',
         pretty_name: 'Stimuli',
         array: true,
         default: undefined,
         description: 'An array that defines a grid.'
       },
       image_size: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Image size',
         array: true,
         default: [100,100],
         description: 'Array specifying the width and height of the images to show.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: 2000,
         description: 'How long to show the stimulus for in milliseconds.'
@@ -45,7 +43,9 @@ const vslGridScene = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     display_element.innerHTML = plugin.generate_stimulus(trial.stimuli, trial.image_size);
 

@@ -5,8 +5,6 @@ the plugin will wait of a specified time before it proceeds.
 
 documentation: docs.jspsych.org
 */
-import jsPsych from '../jspsych.js';
-
 const jspsychHtml = (function() {
 
   var plugin = {};
@@ -16,31 +14,31 @@ const jspsychHtml = (function() {
     description: '',
     parameters: {
       url: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'URL',
         default: undefined,
         description: 'The url of the external html page'
       },
       cont_key: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Continue key',
         default: null,
         description: 'The key to continue to the next page.'
       },
       cont_btn: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Continue button',
         default: null,
         description: 'The button to continue to the next page.'
       },
       check_fn: {
-        type: jsPsych.plugins.parameterType.FUNCTION,
+        type: 'FUNCTION',
         pretty_name: 'Check function',
         default: function() { return true; },
         description: ''
       },
       force_refresh: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Force refresh',
         default: false,
         description: 'Refresh page.'
@@ -48,7 +46,7 @@ const jspsychHtml = (function() {
       // if execute_Script == true, then all javascript code on the external page
       // will be executed in the plugin site within your jsPsych test
       execute_script: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Execute scripts',
         default: false,
         description: 'If true, JS scripts on the external html file will be executed.'
@@ -56,7 +54,9 @@ const jspsychHtml = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     var url = trial.url;
     if (trial.force_refresh) {
@@ -111,3 +111,5 @@ const jspsychHtml = (function() {
 
   return plugin;
 })();
+
+export default jspsychHtml;

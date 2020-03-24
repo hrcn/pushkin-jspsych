@@ -7,8 +7,6 @@
 * documentation: docs.jspsych.org
 *
 **/
-import jsPsych from '../jspsych.js';
-
 const jspsychResize = (function() {
 
   var plugin = {};
@@ -18,37 +16,37 @@ const jspsychResize = (function() {
     description: '',
     parameters: {
       item_height: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Item height',
         default: 1,
         description: 'The height of the item to be measured.'
       },
       item_width: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Item width',
         default: 1,
         description: 'The width of the item to be measured.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'The content displayed below the resizable box and above the button.'
       },
       pixels_per_unit: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Pixels per unit',
         default: 100,
         description: 'After the scaling factor is applied, this many pixels will equal one unit of measurement.'
       },
       starting_size: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Starting size',
         default: 100,
         description: 'The initial size of the box, in pixels, along the larget dimension.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'Label to display on the button to complete calibration.'
@@ -56,8 +54,9 @@ const jspsychResize = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
-
+  plugin.trial = function(jsPsych, trial) {
+    
+    var display_element = jsPsych.getDisplayElement();
     var aspect_ratio = trial.item_width / trial.item_height;
 
     // variables to determine div size

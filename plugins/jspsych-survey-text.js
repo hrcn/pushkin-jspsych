@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const surveyText = (function() {
 
   var plugin = {};
@@ -18,43 +16,43 @@ const surveyText = (function() {
     description: '',
     parameters: {
       questions: {
-        type: jsPsych.plugins.parameterType.COMPLEX,
+        type: 'COMPLEX',
         array: true,
         pretty_name: 'Questions',
         default: undefined,
         nested: {
           prompt: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Prompt',
             default: undefined,
             description: 'Prompt for the subject to response'
           },
           placeholder: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Value',
             default: "",
             description: 'Placeholder text in the textfield.'
           },
           rows: {
-            type: jsPsych.plugins.parameterType.INT,
+            type: 'INT',
             pretty_name: 'Rows',
             default: 1,
             description: 'The number of rows for the response text box.'
           },
           columns: {
-            type: jsPsych.plugins.parameterType.INT,
+            type: 'INT',
             pretty_name: 'Columns',
             default: 40,
             description: 'The number of columns for the response text box.'
           },
           required: {
-            type: jsPsych.plugins.parameterType.BOOL,
+            type: 'BOOL',
             pretty_name: 'Required',
             default: false,
             description: 'Require a response'
           },
           name: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Question Name',
             default: '',
             description: 'Controls the name of data values associated with this question'
@@ -62,13 +60,13 @@ const surveyText = (function() {
         }
       },
       preamble: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Preamble',
         default: null,
         description: 'HTML formatted string to display at the top of the page above all the questions.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'The text that appears on the button to finish the trial.'
@@ -76,8 +74,10 @@ const surveyText = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
 
+    var display_element = jsPsych.getDisplayElement();
+    
     for (var i = 0; i < trial.questions.length; i++) {
       if (typeof trial.questions[i].rows == 'undefined') {
         trial.questions[i].rows = 1;

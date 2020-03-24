@@ -10,8 +10,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const vslAnimateOcclusion = (function() {
 
   var plugin = {};
@@ -23,54 +21,54 @@ const vslAnimateOcclusion = (function() {
     description: '',
     parameters: {
       stimuli: {
-        type: jsPsych.plugins.parameterType.IMAGE,
+        type: 'IMAGE',
         pretty_name: 'Stimuli',
         default: undefined,
         array: true,
         description: 'A stimulus is a path to an image file.'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Choices',
         array: true,
         default: jsPsych.ALL_KEYS,
         description: 'This array contains the keys that the subject is allowed to press in order to respond to the stimulus. '
       },
       canvas_size: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Canvas size',
         array: true,
         default: [400,400],
         description: 'Array specifying the width and height of the area that the animation will display in.'
       },
       image_size: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Image size',
         array: true,
         default: [100,100],
         description: 'Array specifying the width and height of the images to show.'
       },
       initial_direction: {
-        type: jsPsych.plugins.parameterType.SELECT,
+        type: 'SELECT',
         pretty_name: 'Initial direction',
         choices: ['left','right'],
         default: 'left',
         description: 'Which direction the stimulus should move first.'
       },
       occlude_center: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Occlude center',
         default: true,
         description: 'If true, display a rectangle in the center of the screen that is just wide enough to occlude the image completely as it passes behind.'
       },
       cycle_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Cycle duration',
         default: 1000,
         description: 'How long it takes for a stimulus in the sequence to make a complete cycle.'
       },
       pre_movement_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Pre movement duration',
         default: 500,
         description: 'How long to wait before the stimuli starts moving from behind the center rectangle.'
@@ -78,7 +76,9 @@ const vslAnimateOcclusion = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
     
     // variable to keep track of timing info and responses
     var start_time = 0;

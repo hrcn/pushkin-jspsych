@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  **/
-import jsPsych from '../jspsych.js';
-
 const audioKeyboardResponse = (function() {
 
   var plugin = {};
@@ -20,38 +18,38 @@ const audioKeyboardResponse = (function() {
     description: '',
     parameters: {
       stimulus: {
-        type: jsPsych.plugins.parameterType.AUDIO,
+        type: 'AUDIO',
         pretty_name: 'Stimulus',
         default: undefined,
         description: 'The audio to be played.'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Choices',
         array: true,
-        default: jsPsych.ALL_KEYS,
+        default: 'allkeys',
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below the stimulus.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: null,
         description: 'The maximum duration to wait for a response.'
       },
       response_ends_trial: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Response ends trial',
         default: true,
         description: 'If true, the trial will end when user makes a response.'
       },
       trial_ends_after_audio: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Trial ends after audio',
         default: false,
         description: 'If true, then the trial will end as soon as the audio file finishes playing.'
@@ -59,7 +57,9 @@ const audioKeyboardResponse = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+    
+    var display_element = jsPsych.getDisplayElement();
 
     // setup stimulus
     var context = jsPsych.pluginAPI.audioContext();

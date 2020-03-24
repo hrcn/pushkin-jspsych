@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const surveyLikert = (function() {
 
   var plugin = {};
@@ -18,31 +16,31 @@ const surveyLikert = (function() {
     description: '',
     parameters: {
       questions: {
-        type: jsPsych.plugins.parameterType.COMPLEX,
+        type: 'COMPLEX',
         array: true,
         pretty_name: 'Questions',
         nested: {
           prompt: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Prompt',
             default: undefined,
             description: 'Questions that are associated with the slider.'
           },
           labels: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             array: true,
             pretty_name: 'Labels',
             default: undefined,
             description: 'Labels to display for individual question.'
           },
           required: {
-            type: jsPsych.plugins.parameterType.BOOL,
+            type: 'BOOL',
             pretty_name: 'Required',
             default: false,
             description: 'Makes answering the question required.'
           },
           name: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Question Name',
             default: '',
             description: 'Controls the name of data values associated with this question'
@@ -50,25 +48,25 @@ const surveyLikert = (function() {
         }
       },
       randomize_question_order: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Randomize Question Order',
         default: false,
         description: 'If true, the order of the questions will be randomized'
       },
       preamble: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Preamble',
         default: null,
         description: 'String to display at top of the page.'
       },
       scale_width: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Scale width',
         default: null,
         description: 'Width of the likert scales in pixels.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'Label of the button.'
@@ -76,7 +74,9 @@ const surveyLikert = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     if(trial.scale_width !== null){
       var w = trial.scale_width + 'px';

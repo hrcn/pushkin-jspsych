@@ -5,8 +5,6 @@
  *
  * documentation: docs.jspsych.org
  */
-import jsPsych from '../jspsych.js';
-
 const freeSort = (function() {
 
   var plugin = {};
@@ -18,51 +16,51 @@ const freeSort = (function() {
     description: '',
     parameters: {
       stimuli: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Stimuli',
         default: undefined,
         array: true,
         description: 'Images to be displayed.'
       },
       stim_height: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Stimulus height',
         default: 100,
         description: 'Height of images in pixels.'
       },
       stim_width: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Stimulus width',
         default: 100,
         description: 'Width of images in pixels'
       },
       sort_area_height: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Sort area height',
         default: 800,
         description: 'The height of the container that subjects can move the stimuli in.'
       },
       sort_area_width: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Sort area width',
         default: 800,
         description: 'The width of the container that subjects can move the stimuli in.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'It can be used to provide a reminder about the action the subject is supposed to take.'
       },
       prompt_location: {
-        type: jsPsych.plugins.parameterType.SELECT,
+        type: 'SELECT',
         pretty_name: 'Prompt location',
         options: ['above','below'],
         default: 'above',
         description: 'Indicates whether to show prompt "above" or "below" the sorting area.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'The text that appears on the button to continue to the next trial.'
@@ -70,7 +68,9 @@ const freeSort = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     var start_time = performance.now();
 

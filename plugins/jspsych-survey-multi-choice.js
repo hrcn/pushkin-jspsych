@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const surveyMultiChoice = (function() {
   var plugin = {};
 
@@ -17,37 +15,37 @@ const surveyMultiChoice = (function() {
     description: '',
     parameters: {
       questions: {
-        type: jsPsych.plugins.parameterType.COMPLEX,
+        type: 'COMPLEX',
         array: true,
         pretty_name: 'Questions',
         nested: {
           prompt: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Prompt',
             default: undefined,
             description: 'The strings that will be associated with a group of options.'
           },
           options: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Options',
             array: true,
             default: undefined,
             description: 'Displays options for an individual question.'
           },
           required: {
-            type: jsPsych.plugins.parameterType.BOOL,
+            type: 'BOOL',
             pretty_name: 'Required',
             default: false,
             description: 'Subject will be required to pick an option for each question.'
           },
           horizontal: {
-            type: jsPsych.plugins.parameterType.BOOL,
+            type: 'BOOL',
             pretty_name: 'Horizontal',
             default: false,
             description: 'If true, then questions are centered and options are displayed horizontally.'
           },
           name: {
-            type: jsPsych.plugins.parameterType.STRING,
+            type: 'STRING',
             pretty_name: 'Question Name',
             default: '',
             description: 'Controls the name of data values associated with this question'
@@ -55,26 +53,30 @@ const surveyMultiChoice = (function() {
         }
       },
       randomize_question_order: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Randomize Question Order',
         default: false,
         description: 'If true, the order of the questions will be randomized'
       },
       preamble: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Preamble',
         default: null,
         description: 'HTML formatted string to display at the top of the page above all the questions.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         description: 'Label of the button.'
       }
     }
   }
-  plugin.trial = function(display_element, trial) {
+
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
+    
     var plugin_id_name = "jspsych-survey-multi-choice";
 
     var html = "";

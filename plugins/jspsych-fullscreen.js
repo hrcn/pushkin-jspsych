@@ -4,8 +4,6 @@
  * toggle fullscreen mode in the browser
  *
  */
-import jsPsych from '../jspsych.js';
-
 const jspsychFullscreen = (function() {
 
   var plugin = {};
@@ -15,28 +13,28 @@ const jspsychFullscreen = (function() {
     description: '',
     parameters: {
       fullscreen_mode: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Fullscreen mode',
         default: true,
         array: false,
         description: 'If true, experiment will enter fullscreen mode. If false, the browser will exit fullscreen mode.'
       },
       message: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Message',
         default: '<p>The experiment will switch to full screen mode when you press the button below</p>',
         array: false,
         description: 'HTML content to display above the button to enter fullscreen mode.'
       },
       button_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Button label',
         default:  'Continue',
         array: false,
         description: 'The text that appears on the button to enter fullscreen.'
       },
       delay_after: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Delay after',
         default: 1000,
         array: false,
@@ -45,7 +43,9 @@ const jspsychFullscreen = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     // check if keys are allowed in fullscreen mode
     var keyboardNotAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;

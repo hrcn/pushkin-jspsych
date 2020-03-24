@@ -6,8 +6,6 @@
  *
  * documentation: docs.jspsych.org
  **/
-import jsPsych from '../jspsych.js';
-
 const jspsychCloze = (function () {
 
     var plugin = {};
@@ -17,25 +15,25 @@ const jspsychCloze = (function () {
         description: '',
         parameters: {
             text: {
-                type: jsPsych.plugins.parameterType.STRING,
+                type: 'STRING',
                 pretty_name: 'Cloze text',
                 default: undefined,
                 description: 'The cloze text to be displayed. Blanks are indicated by %% signs and automatically replaced by input fields. If there is a correct answer you want the system to check against, it must be typed between the two percentage signs (i.e. %solution%).'
             },
             button_text: {
-                type: jsPsych.plugins.parameterType.STRING,
+                type: 'STRING',
                 pretty_name: 'Button text',
                 default: 'OK',
                 description: 'Text of the button participants have to press for finishing the cloze test.'
             },
             check_answers: {
-                type: jsPsych.plugins.parameterType.BOOL,
+                type: 'BOOL',
                 pretty_name: 'Check answers',
                 default: false,
                 description: 'Boolean value indicating if the answers given by participants should be compared against a correct solution given in the text (between % signs) after the button was clicked.'
             },
             mistake_fn: {
-                type: jsPsych.plugins.parameterType.FUNCTION,
+                type: 'FUNCTION',
                 pretty_name: 'Mistake function',
                 default: function () {},
                 description: 'Function called if check_answers is set to TRUE and there is a difference between the participants answers and the correct solution provided in the text.'
@@ -43,11 +41,12 @@ const jspsychCloze = (function () {
         }
     };
 
-    plugin.trial = function (display_element, trial) {
+    plugin.trial = function (jsPsych, trial) {
 
         var html = '<div class="cloze">';
         var elements = trial.text.split('%');
         var solutions = [];
+        var display_element = jsPsych.getDisplayElement();
 
         for (var i=0; i<elements.length; i++)
         {

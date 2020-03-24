@@ -4,8 +4,6 @@
  *
  * documentation: docs.jspsych.org
  **/
-import jsPsych from '../jspsych.js';
-
 const categorizeImage = (function() {
 
   var plugin = {};
@@ -17,86 +15,86 @@ const categorizeImage = (function() {
     description: '',
     parameters: {
       stimulus: {
-        type: jsPsych.plugins.parameterType.IMAGE,
+        type: 'IMAGE',
         pretty_name: 'Stimulus',
         default: undefined,
         description: 'The image content to be displayed.'
       },
       key_answer: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Key answer',
         default: undefined,
         description: 'The key to indicate the correct response.'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Choices',
-        default: jsPsych.ALL_KEYS,
+        default: 'allkeys',
         array: true,
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
       text_answer: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Text answer',
         default: null,
         description: 'Label that is associated with the correct answer.'
       },
       correct_text: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Correct text',
         default: "<p class='feedback'>Correct</p>",
         description: 'String to show when correct answer is given.'
       },
       incorrect_text: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Incorrect text',
         default: "<p class='feedback'>Incorrect</p>",
         description: 'String to show when incorrect answer is given.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below the stimulus.'
       },
       force_correct_button_press: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Force correct button press',
         default: false,
         description: 'If set to true, then the subject must press the correct response key after feedback in order to advance to next trial.'
       },
       show_stim_with_feedback: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         default: true,
         no_function: false,
         description: ''
       },
       show_feedback_on_timeout: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Show feedback on timeout',
         default: false,
         description: 'If true, stimulus will be shown during feedback. If false, only the text feedback will be displayed during feedback.'
       },
       timeout_message: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Timeout message',
         default: "<p>Please respond faster.</p>",
         description: 'The message displayed on a timeout non-response.'
       },
       stimulus_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Stimulus duration',
         default: null,
         description: 'How long to hide stimulus.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: null,
         description: 'How long to show trial'
       },
       feedback_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Feedback duration',
         default: 2000,
         description: 'How long to show feedback.'
@@ -104,8 +102,9 @@ const categorizeImage = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
 
+    var display_element = jsPsych.getDisplayElement();
     display_element.innerHTML = '<img id="jspsych-categorize-image-stimulus" class="jspsych-categorize-image-stimulus" src="'+trial.stimulus+'"></img>';
 
     // hide image after time if the timing parameter is set

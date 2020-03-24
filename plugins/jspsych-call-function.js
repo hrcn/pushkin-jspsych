@@ -6,8 +6,6 @@
  * documentation: docs.jspsych.org
  *
  **/
-import jsPsych from '../jspsych.js';
-
 const callFunction = (function() {
 
   var plugin = {};
@@ -17,13 +15,13 @@ const callFunction = (function() {
     description: '',
     parameters: {
       func: {
-        type: jsPsych.plugins.parameterType.FUNCTION,
+        type: 'FUNCTION',
         pretty_name: 'Function',
         default: undefined,
         description: 'Function to call'
       },
       async: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Asynchronous',
         default: false,
         description: 'Is the function call asynchronous?'
@@ -31,9 +29,10 @@ const callFunction = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
     trial.post_trial_gap = 0;
     var return_val;
+    var display_element = jsPsych.getDisplayElement();
 
     if(trial.async){
       var done = function(data){

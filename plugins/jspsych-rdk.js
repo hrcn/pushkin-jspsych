@@ -27,8 +27,6 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	
 */
-import jsPsych from '../jspsych.js';
-		
 const jspsychRdk = (function() {
 
 	var plugin = {};
@@ -37,183 +35,183 @@ const jspsychRdk = (function() {
 	    name: "rdk",
 	    parameters: {
 		    choices: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Choices",
 		      default: [],
 		      array: true,
 		      description: "The valid keys that the subject can press to indicate a response"
 		    },
 		    correct_choice: {
-		      type: jsPsych.plugins.parameterType.STRING,
+		      type: 'STRING',
 		      pretty_name: "Correct choice",
 		      default: undefined,
 		      array: true,
 		      description: "The correct keys for that trial"
 		    },
 		    trial_duration: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Trial duration",
 		      default: 500,
 		      description: "The length of stimulus presentation"
 		    },
 		    response_ends_trial: {
-		      type: jsPsych.plugins.parameterType.BOOL,
+		      type: 'BOOL',
 		      pretty_name: "Response ends trial",
 		      default: true,
 		      description: "If true, then any valid key will end the trial"
 		    },
 		    number_of_apertures: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Number of apertures",
 		      default: 1,
 		      description: "The number of RDK apertures (If more than one, make sure to separate them by setting aperture_center_x and aperture_center_y for each RDK)"
 		    },
 		    number_of_dots: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Number of dots",
 		      default: 300,
 		      description: "The number of dots per set in the stimulus"
 		    },
 		    number_of_sets: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Number of sets",
 		      default: 1,
 		      description: "The number of sets of dots to cycle through"
 		    },
 		    coherent_direction: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Coherent direction",
 		      default: 0,
 		      description: "The direction of coherent motion in degrees"
 		    },
 		    coherence: {
-		      type: jsPsych.plugins.parameterType.FLOAT,
+		      type: 'FLOAT',
 		      pretty_name: "Coherence",
 		      default: 0.5,
 		      description: "The percentage of dots moving in the coherent direction"
 		    },
 		    opposite_coherence: {
-		      type: jsPsych.plugins.parameterType.FLOAT,
+		      type: 'FLOAT',
 		      pretty_name: "Opposite coherence",
 		      default: 0,
 		      description: "The percentage of dots moving in the direction opposite of the coherent direction"
 		    },
 		    dot_radius: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Dot radius",
 		      default: 2,
 		      description: "The radius of the dots in pixels"
 		    },
 		    dot_life: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Dot life",
 		      default: -1,
 		      description: "The number of frames that pass before each dot disappears and reappears somewhere else"
 		    },
 		    move_distance: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Move distance",
 		      default: 1,
 		      description: "The distance in pixels each dot moves per frame"
 		    },
 		    aperture_width: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Aperture width",
 		      default: 600,
 		      description: "The width of the aperture in pixels"
 		    },
 		    aperture_height: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Aperture height",
 		      default: 400,
 		      description: "The height of the aperture in pixels"
 		    },
 		    dot_color: {
-		      type: jsPsych.plugins.parameterType.STRING,
+		      type: 'STRING',
 		      pretty_name: "Dot color",
 		      default: "white",
 		      description: "The color of the dots"
 		    },
 		    background_color: {
-		      type: jsPsych.plugins.parameterType.STRING,
+		      type: 'STRING',
 		      pretty_name: "Background color",
 		      default: "gray",
 		      description: "The background of the stimulus"
 		    },
 		    RDK_type: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "RDK type",
 		      default: 3,
 		      description: "The Type of RDK (refer to documentation for details)"
 		    },
 		    aperture_type: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Aperture Type",
 		      default: 2,
 		      description: "The shape of the aperture"
 		    },
 		    reinsert_type: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Reinsert type",
 		      default: 2,
 		      description: "The reinsertion rule for dots that move out of the aperture"
 		    },
 		    aperture_center_x: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Aperture center X",
 		      default: window.innerWidth/2,
 		      description: "The x-coordinate of the center of the aperture"
 		    },
 		    aperture_center_y: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Aperture center Y",
 		      default: window.innerHeight/2,
 		      description: "The y-coordinate of the center of the aperture"
 		    },
 		    fixation_cross: {
-		      type: jsPsych.plugins.parameterType.INT, //boolean
+		      type: 'INT', //boolean
 		      pretty_name: "Fixation cross",
 		      default: false,
 		      description: "If true, then a fixation cross will be present in the middle of the screen"
 		    },
 		    fixation_cross_width: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Fixation cross width",
 		      default: 20,
 		      description: "The width of the fixation cross in pixels"
 		    },
 		    fixation_cross_height: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Fixation cross height",
 		      default: 20,
 		      description: "The height of the fixation cross in pixels"
 		    },
 		    fixation_cross_color: {
-		      type: jsPsych.plugins.parameterType.STRING,
+		      type: 'STRING',
 		      pretty_name: "Fixation cross color",
 		      default: "black",
 		      description: "The color of the fixation cross"
 		    },
 		    fixation_cross_thickness: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Fixation cross thickness",
 		      default: 1,
 		      description: "The thickness of the fixation cross"
 		    },
 		    border: {
-		      type: jsPsych.plugins.parameterType.BOOL,
+		      type: 'BOOL',
 		      pretty_name: "Border",
 		      default: false,
 		      description: "The presence of a border around the aperture"
 		    },
 		    border_thickness: {
-		      type: jsPsych.plugins.parameterType.INT,
+		      type: 'INT',
 		      pretty_name: "Border width",
 		      default: 1,
 		      description: "The thickness of the border in pixels"
 		    },
 		    border_color: {
-		      type: jsPsych.plugins.parameterType.STRING,
+		      type: 'STRING',
 		      pretty_name: "Border Color",
 		      default: 1,
 		      description: "The color of the border"
@@ -223,7 +221,9 @@ const jspsychRdk = (function() {
 
 
 	//BEGINNING OF TRIAL 
-	plugin.trial = function(display_element, trial) {
+	plugin.trial = function(jsPsych, trial) {
+
+		var display_element = jsPsych.getDisplayElement();
 
 		//--------------------------------------
 		//---------SET PARAMETERS BEGIN---------

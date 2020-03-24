@@ -4,8 +4,6 @@
  *
  * documentation: docs.jspsych.org
  */
-import jsPsych from '../jspsych.js';
-
 const animation = (function() {
 
   var plugin = {};
@@ -17,39 +15,39 @@ const animation = (function() {
     description: '',
     parameters: {
       stimuli: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Stimuli',
         default: undefined,
         array: true,
         description: 'The images to be displayed.'
       },
       frame_time: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Frame time',
         default: 250,
         description: 'Duration to display each image.'
       },
       frame_isi: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Frame gap',
         default: 0,
         description: 'Length of gap to be shown between each image.'
       },
       sequence_reps: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Sequence repetitions',
         default: 1,
         description: 'Number of times to show entire sequence.'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Choices',
-        default: jsPsych.ALL_KEYS,
+        default: 'allkeys',
         array: true,
         description: 'Keys subject uses to respond to stimuli.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below stimulus.'
@@ -57,7 +55,7 @@ const animation = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
 
     var interval_time = trial.frame_time + trial.frame_isi;
     var animate_frame = -1;
@@ -66,6 +64,7 @@ const animation = (function() {
     var animation_sequence = [];
     var responses = [];
     var current_stim = "";
+    var display_element = jsPsych.getDisplayElement();
 
     var animate_interval = setInterval(function() {
       var showImage = true;

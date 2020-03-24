@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  */
-import jsPsych from '../jspsych.js';
-
 const sameDifferentImage = (function() {
 
   var plugin = {};
@@ -20,51 +18,51 @@ const sameDifferentImage = (function() {
     description: '',
     parameters: {
       stimuli: {
-        type: jsPsych.plugins.parameterType.IMAGE,
+        type: 'IMAGE',
         pretty_name: 'Stimuli',
         default: undefined,
         array: true,
         description: 'The images to be displayed.'
       },
       answer: {
-        type: jsPsych.plugins.parameterType.SELECT,
+        type: 'SELECT',
         pretty_name: 'Answer',
         options: ['same', 'different'],
         default: 75,
         description: 'Either "same" or "different".'
       },
       same_key: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Same key',
         default: 'Q',
         description: ''
       },
       different_key: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Different key',
         default: 'P',
         description: 'The key that subjects should press to indicate that the two stimuli are the same.'
       },
       first_stim_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'First stimulus duration',
         default: 1000,
         description: 'How long to show the first stimulus for in milliseconds.'
       },
       gap_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Gap duration',
         default: 500,
         description: 'How long to show a blank screen in between the two stimuli.'
       },
       second_stim_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Second stimulus duration',
         default: 1000,
         description: 'How long to show the second stimulus for in milliseconds.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below the stimulus.'
@@ -72,8 +70,9 @@ const sameDifferentImage = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
 
+    var display_element = jsPsych.getDisplayElement();
     display_element.innerHTML = '<img class="jspsych-same-different-stimulus" src="'+trial.stimuli[0]+'"></img>';
 
     var first_stim_info;

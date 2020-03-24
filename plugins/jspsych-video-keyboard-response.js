@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  **/
-import jsPsych from '../jspsych.js';
-
 const videoKeyboardResponse = (function() {
 
   var plugin = {};
@@ -20,80 +18,80 @@ const videoKeyboardResponse = (function() {
     description: '',
     parameters: {
       sources: {
-        type: jsPsych.plugins.parameterType.VIDEO,
+        type: 'VIDEO',
         pretty_name: 'Video',
         default: undefined,
         description: 'The video file to play.'
       },
       choices: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Choices',
         array: true,
         default: jsPsych.ALL_KEYS,
         description: 'The keys the subject is allowed to press to respond to the stimulus.'
       },
       prompt: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Prompt',
         default: null,
         description: 'Any content here will be displayed below the stimulus.'
       },
       width: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Width',
         default: '',
         description: 'The width of the video in pixels.'
       },
       height: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Height',
         default: '',
         description: 'The height of the video display in pixels.'
       },
       autoplay: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Autoplay',
         default: true,
         description: 'If true, the video will begin playing as soon as it has loaded.'
       },
       controls: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Controls',
         default: false,
         description: 'If true, the subject will be able to pause the video or move the playback to any point in the video.'
       },
       start: {
-        type: jsPsych.plugins.parameterType.FLOAT,
+        type: 'FLOAT',
         pretty_name: 'Start',
         default: null,
         description: 'Time to start the clip.'
       },
       stop: {
-        type: jsPsych.plugins.parameterType.FLOAT,
+        type: 'FLOAT',
         pretty_name: 'Stop',
         default: null,
         description: 'Time to stop the clip.'
       },
       rate: {
-        type: jsPsych.plugins.parameterType.FLOAT,
+        type: 'FLOAT',
         pretty_name: 'Rate',
         default: 1,
         description: 'The playback rate of the video. 1 is normal, <1 is slower, >1 is faster.'
       },
       trial_ends_after_video: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'End trial after video finishes',
         default: false,
         description: 'If true, the trial will end immediately after the video finishes playing.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: null,
         description: 'How long to show trial before it ends.'
       },
       response_ends_trial: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Response ends trial',
         default: true,
         description: 'If true, the trial will end when subject makes a response.'
@@ -101,7 +99,9 @@ const videoKeyboardResponse = (function() {
     }
   }
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     // setup stimulus
     var video_html = '<div>'

@@ -7,8 +7,6 @@
  * documentation: docs.jspsych.org
  *
  **/
-import jsPsych from '../jspsych.js';
-
 const iatHtml = (function() {
 
   var plugin = {};
@@ -18,83 +16,83 @@ const iatHtml = (function() {
     description: '',
     parameters: {
       stimulus: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: 'HTML_STRING',
         pretty_name: 'Stimulus',
         default: undefined,
         description: 'The HTML string to be displayed.'
       },
       left_category_key: {
-        type: jsPsych.plugins.parameterType.HTML_STRING, 
+        type: 'HTML_STRING', 
         pretty_name: 'Left category key',
         default: 'E',
         description: 'Key press that is associated with the left category label.'
       },
       right_category_key: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Right category key',
         default: 'I',
         description: 'Key press that is associated with the right category label.'
       },
       left_category_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Left category label',
         array: true,
         default: ['left'],
         description: 'The label that is associated with the stimulus. Aligned to the left side of page.'
       },
       right_category_label: {
-        type: jsPsych.plugins.parameterType.STRING,
+        type: 'STRING',
         pretty_name: 'Right category label',
         array: true,
         default: ['right'],
         description: 'The label that is associated with the stimulus. Aligned to the right side of the page.'
       },
       key_to_move_forward: {
-        type: jsPsych.plugins.parameterType.KEYCODE,
+        type: 'KEYCODE',
         pretty_name: 'Key to move forward',
         array: true,
         default: jsPsych.ALL_KEYS,
         description: 'The keys that allow the user to advance to the next trial if their key press was incorrect.'
       },
       display_feedback: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Display feedback',
         default: false,
         description: 'If true, then html when wrong will be displayed when user makes an incorrect key press.'
       },
       html_when_wrong: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: 'HTML_STRING',
         pretty_name: 'HTML when wrong',
         default: '<span style="color: red; font-size: 80px">X</span>',
         description: 'The image to display when a user presses the wrong key.'
       }, 
       bottom_instructions: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: 'HTML_STRING',
         pretty_name: 'Bottom instructions',
         default: '<p>If you press the wrong key, a red X will appear. Press any key to continue.</p>',
         description: 'Instructions shown at the bottom of the page.'
       },
       force_correct_key_press: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Force correct key press',
         default: false,
         description: 'If true, in order to advance to the next trial after a wrong key press the user will be forced to press the correct key.'
       },
       stim_key_association: {
-        type: jsPsych.plugins.parameterType.HTML_STRING,
+        type: 'HTML_STRING',
         pretty_name: 'Stimulus key association',
         options: ['left', 'right'],
         default: 'undefined',
         description: 'Stimulus will be associated with eight "left" or "right".'
       },
       response_ends_trial: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: 'BOOL',
         pretty_name: 'Response ends trial',
         default: true,
         description: 'If true, trial will end when user makes a response.'
       },
       trial_duration: {
-        type: jsPsych.plugins.parameterType.INT,
+        type: 'INT',
         pretty_name: 'Trial duration',
         default: null,
         description: 'How long to show the trial.'
@@ -103,7 +101,9 @@ const iatHtml = (function() {
   }
 
 
-  plugin.trial = function(display_element, trial) {
+  plugin.trial = function(jsPsych, trial) {
+
+    var display_element = jsPsych.getDisplayElement();
 
     var html_str = "";
 
