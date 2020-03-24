@@ -854,9 +854,9 @@ const jsPsych = (function() {
     // execute trial method
     if (typeof trial.type === 'object') {
       // trial is passed as object, directly execute it
-      trial.type.trial(DOM_target, trial)
+      trial.type.trial(jsPsych, trial)
     } else {
-      jsPsych.plugins[trial.type].trial(DOM_target, trial);
+      jsPsych.plugins[trial.type].trial(jsPsych, trial);
     }
 
     // call trial specific loaded callback if it exists
@@ -902,8 +902,8 @@ const jsPsych = (function() {
         // the second line checks the plugin-specific parameters
         var plugin_info = typeof trial.type === 'object' ? trial.type.info : jsPsych.plugins[trial.type].info
         if(
-          (typeof jsPsych.plugins.universalPluginParameters[keys[i]] !== 'undefined' && jsPsych.plugins.universalPluginParameters[keys[i]].type !== jsPsych.plugins.parameterType.FUNCTION ) ||
-          (typeof plugin_info.parameters[keys[i]] !== 'undefined' && plugin_info.parameters[keys[i]].type !== jsPsych.plugins.parameterType.FUNCTION)
+          (typeof jsPsych.plugins.universalPluginParameters[keys[i]] !== 'undefined' && jsPsych.plugins.universalPluginParameters[keys[i]].type !== 'FUNCTION' ) ||
+          (typeof plugin_info.parameters[keys[i]] !== 'undefined' && plugin_info.parameters[keys[i]].type !== 'FUNCTION')
         ) {
           if (typeof trial[keys[i]] == "function") {
             trial[keys[i]] = trial[keys[i]].call();
@@ -927,7 +927,7 @@ const jsPsych = (function() {
     var plugin_info = typeof trial.type === 'object' ? trial.type.info : jsPsych.plugins[trial.type].info
     for(var param in plugin_info.parameters){
       // check if parameter is complex with nested defaults
-      if(plugin_info.parameters[param].type == jsPsych.plugins.parameterType.COMPLEX){
+      if(plugin_info.parameters[param].type == 'COMPLEX'){
         if(plugin_info.parameters[param].array == true){
           // iterate over each entry in the array
           for(var i in trial[param]){
@@ -1043,50 +1043,33 @@ jsPsych.plugins = (function() {
 
   var module = {};
 
-  // enumerate possible parameter types for plugins
-  module.parameterType = {
-    BOOL: 0,
-    STRING: 1,
-    INT: 2,
-    FLOAT: 3,
-    FUNCTION: 4,
-    KEYCODE: 5,
-    SELECT: 6,
-    HTML_STRING: 7,
-    IMAGE: 8,
-    AUDIO: 9,
-    VIDEO: 10,
-    OBJECT: 11,
-    COMPLEX: 12
-  }
-
   module.universalPluginParameters = {
     data: {
-      type: module.parameterType.OBJECT,
+      type: 'OBJECT',
       pretty_name: 'Data',
       default: {},
       description: 'Data to add to this trial (key-value pairs)'
     },
     on_start: {
-      type: module.parameterType.FUNCTION,
+      type: 'FUNCTION',
       pretty_name: 'On start',
       default: function() { return; },
       description: 'Function to execute when trial begins'
     },
     on_finish: {
-      type: module.parameterType.FUNCTION,
+      type: 'FUNCTION',
       pretty_name: 'On finish',
       default: function() { return; },
       description: 'Function to execute when trial is finished'
     },
     on_load: {
-      type: module.parameterType.FUNCTION,
+      type: 'FUNCTION',
       pretty_name: 'On load',
       default: function() { return; },
       description: 'Function to execute after the trial has loaded'
     },
     post_trial_gap: {
-      type: module.parameterType.INT,
+      type: 'INT',
       pretty_name: 'Post trial gap',
       default: null,
       description: 'Length of gap between the end of this trial and the start of the next trial'
